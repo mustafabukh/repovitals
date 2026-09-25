@@ -11,6 +11,7 @@ from repovitals.git_history import load_history
 from repovitals.health import analyze_dependencies
 from repovitals.metrics import summarize_repository
 from repovitals.models import DependencyHealth, RepositorySummary
+from repovitals.plotting import create_plots
 from repovitals.reporting import write_reports
 
 
@@ -216,10 +217,21 @@ def main(argv: list[str] | None = None) -> int:
         except RepoVitalsError as error:
             print(f"error: {error}", file=sys.stderr)
             return 2
+        try:
+            plot_paths = create_plots(
+                history,
+                summary,
+                arguments.output,
+            )
+        except RepoVitalsError as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 2
 
         print()
         print(f"Markdown report: {markdown_path}")
         print(f"JSON report:     {json_path}")
+        for plot_path in plot_paths:
+            print(f"Plot:            {plot_path}")
 
     return 0
 

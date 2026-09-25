@@ -217,6 +217,19 @@ def create_markdown_report(
 
     lines.extend(
         [
+            "## Visualizations",
+            "",
+            "![Monthly commit activity](commit_activity.png)",
+            "",
+            "![Contributor shares](contributor_share.png)",
+            "",
+            "![File hotspots](file_hotspots.png)",
+            "",
+        ]
+    )
+
+    lines.extend(
+        [
             "## Interpretation",
             "",
             "Dependency risk ratings are explainable heuristics based on "
