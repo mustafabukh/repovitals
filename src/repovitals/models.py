@@ -77,3 +77,15 @@ class PackageMetadata:
     latest_release: datetime | None
     release_count: int
     requires_python: str | None
+
+
+@dataclass(frozen=True)
+class DependencyHealth:
+    """Maintenance-health result for one direct dependency."""
+
+    requirement: DependencyRequirement
+    metadata: PackageMetadata | None
+    risk: str
+    score: int
+    reasons: tuple[str, ...]
+    error: str | None = None

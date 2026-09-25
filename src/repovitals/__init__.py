@@ -3,6 +3,7 @@
 from repovitals.dependencies import load_dependencies, parse_requirement
 from repovitals.git_history import load_history
 from repovitals.metrics import summarize_repository
+from repovitals.health import analyze_dependencies, assess_package
 from repovitals.models import (
     ContributorStat,
     DependencyRequirement,
@@ -26,4 +27,8 @@ __all__ = [
     "summarize_repository",
     "PackageMetadata",
     "load_package_metadata",
+    "DependencyHealth",
+"analyze_dependencies",
+"assess_package",
+
 ]
