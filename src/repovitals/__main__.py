@@ -11,6 +11,7 @@ from repovitals.git_history import load_history
 from repovitals.health import analyze_dependencies
 from repovitals.metrics import summarize_repository
 from repovitals.models import DependencyHealth, RepositorySummary
+from repovitals.reporting import write_reports
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -52,6 +53,11 @@ def create_parser() -> argparse.ArgumentParser:
         "--refresh",
         action="store_true",
         help="ignore cached responses and download fresh metadata",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="directory in which Markdown and JSON reports are saved",
     )
     parser.add_argument(
         "--version",
@@ -159,7 +165,7 @@ def main(argv: list[str] | None = None) -> int:
     """Run RepoVitals."""
     parser = create_parser()
     arguments = parser.parse_args(argv)
-
+    dependencies: tuple[DependencyHealth, ...] = ()
     if arguments.top < 1:
         parser.error("--top must be at least 1")
 
@@ -179,30 +185,42 @@ def main(argv: list[str] | None = None) -> int:
 
     print(format_summary(summary))
 
-    if arguments.no_dependencies:
-        return 0
+    if not arguments.no_dependencies:
+        pyproject_path = repository_root / "pyproject.toml"
 
-    pyproject_path = repository_root / "pyproject.toml"
+        if not pyproject_path.exists():
+            print("\nDependency analysis skipped: pyproject.toml not found.")
+        else:
+            cache_directory = Path(arguments.cache_dir)
 
-    if not pyproject_path.exists():
-        print("\nDependency analysis skipped: pyproject.toml not found.")
-        return 0
+            try:
+                dependencies = analyze_dependencies(
+                    repository_root,
+                    cache_directory=cache_directory,
+                    offline=arguments.offline,
+                    refresh=arguments.refresh,
+                )
+            except RepoVitalsError as error:
+                print(f"\nDependency analysis failed: {error}")
+            else:
+                print()
+                print(format_dependencies(dependencies))
 
-    cache_directory = Path(arguments.cache_dir)
+    if arguments.output is not None:
+        try:
+            markdown_path, json_path = write_reports(
+                arguments.output,
+                summary,
+                dependencies,
+            )
+        except RepoVitalsError as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 2
 
-    try:
-        dependencies = analyze_dependencies(
-            repository_root,
-            cache_directory=cache_directory,
-            offline=arguments.offline,
-            refresh=arguments.refresh,
-        )
-    except RepoVitalsError as error:
-        print(f"\nDependency analysis failed: {error}")
-        return 0
+        print()
+        print(f"Markdown report: {markdown_path}")
+        print(f"JSON report:     {json_path}")
 
-    print()
-    print(format_dependencies(dependencies))
     return 0
 
 

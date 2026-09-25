@@ -13,6 +13,11 @@ from repovitals.models import (
     RepositorySummary,
 )
 from repovitals.pypi import load_package_metadata
+from repovitals.reporting import (
+    build_report_data,
+    create_markdown_report,
+    write_reports,
+)
 
 __version__ = "0.1.0"
 
@@ -31,4 +36,7 @@ __all__ = [
     "load_package_metadata",
     "parse_requirement",
     "summarize_repository",
+    "build_report_data",
+    "create_markdown_report",
+    "write_reports",
 ]

@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-09-25T17:13:03.788413+00:00",
+  "repository": {
+    "path": "C:\\Users\\ui992624\\Downloads\\dataScienceInContextProgCourse\\repovitals",
+    "commit_count": 22,
+    "contributor_count": 1,
+    "file_count": 24,
+    "additions": 2773,
+    "deletions": 48,
+    "churn": 2821,
+    "binary_changes": 0,
+    "renamed_changes": 0,
+    "first_commit": "2026-09-16T20:51:59+00:00",
+    "latest_commit": "2026-09-25T17:00:49+00:00",
+    "top_contributors": [
+      {
+        "name": "Mustafa",
+        "email": "mustafa.bukh@gmail.com",
+        "commits": 22,
+        "share": 1.0
+      }
+    ],
+    "hotspots": [
+      {
+        "path": "uv.lock",
+        "commits": 5,
+        "additions": 449,
+        "deletions": 1,
+        "churn": 450
+      },
+      {
+        "path": "src/repovitals/git_history.py",
+        "commits": 1,
+        "additions": 278,
+        "deletions": 0,
+        "churn": 278
+      },
+      {
+        "path": "src/repovitals/pypi.py",
+        "commits": 1,
+        "additions": 231,
+        "deletions": 0,
+        "churn": 231
+      },
+      {
+        "path": "src/repovitals/__main__.py",
+        "commits": 4,
+        "additions": 219,
+        "deletions": 9,
+        "churn": 228
+      },
+      {
+        "path": "tests/test_git_history.py",
+        "commits": 1,
+        "additions": 215,
+        "deletions": 0,
+        "churn": 215
+      },
+      {
+        "path": "tests/test_dependencies.py",
+        "commits": 1,
+        "additions": 199,
+        "deletions": 0,
+        "churn": 199
+      },
+      {
+        "path": "tests/test_pypi.py",
+        "commits": 1,
+        "additions": 151,
+        "deletions": 0,
+        "churn": 151
+      },
+      {
+        "path": "src/repovitals/metrics.py",
+        "commits": 1,
+        "additions": 143,
+        "deletions": 0,
+        "churn": 143
+      },
+      {
+        "path": "playground/test.py",
+        "commits": 3,
+        "additions": 119,
+        "deletions": 5,
+        "churn": 124
+      },
+      {
+        "path": "tests/test_metrics.py",
+        "commits": 1,
+        "additions": 120,
+        "deletions": 0,
+        "churn": 120
+      }
+    ]
+  },
+  "dependencies": []
+}
