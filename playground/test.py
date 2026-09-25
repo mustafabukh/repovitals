@@ -1,14 +1,18 @@
 import subprocess
+
 import pandas as pd
 
-# unique char 
+# unique char
 SEP = "\x1f"
 # hash, name, email, timestamp, subject.
 LOG_FORMAT = SEP.join(["", "C", "%H", "%an", "%ae", "%at", "%s"])
 print(LOG_FORMAT)
 
+
 def run_git_log(repo_path):
-    """ runs: git log --no-merges --numstat --pretty=format:C%H%an%ae%at%s from the path of the repo we want to analyze"""
+    """runs:
+    git log --no-merges --numstat --pretty=format:C%H%an%ae%at%s
+    from the path of the repo we want to analyze"""
     command = [
         "git",
         "log",
@@ -27,6 +31,7 @@ def run_git_log(repo_path):
     )
 
     return result.stdout
+
 
 # import time
 def parse_count(value):
@@ -52,7 +57,7 @@ def clean_path(path):
 
 
 def parse_log(text):
-    """ raw git log output to list of dictionaries"""
+    """raw git log output to list of dictionaries"""
     rows = []
     commit = None
 
@@ -100,7 +105,9 @@ if __name__ == "__main__":
     print("author emails:", df["author_email"].nunique())
     print()
     print("top 10 authors by commits:")
-    print(df.groupby("author_name")["sha"].nunique().sort_values(ascending=False).head(10))
+    print(
+        df.groupby("author_name")["sha"].nunique().sort_values(ascending=False).head(10)
+    )
     print()
     print("top 10 files by churn:")
     df["churn"] = df["added"] + df["deleted"]
