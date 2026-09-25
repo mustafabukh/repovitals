@@ -23,3 +23,11 @@ class GitParseError(RepositoryError):
 
 class ConfigurationError(RepoVitalsError):
     """Raised when project configuration cannot be read."""
+
+
+class PackageApiError(RepoVitalsError):
+    """Raised when package metadata cannot be retrieved."""
+
+
+class CacheError(RepoVitalsError):
+    """Raised when cached data cannot be read or written."""

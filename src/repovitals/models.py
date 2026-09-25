@@ -63,3 +63,17 @@ class DependencyRequirement:
     marker: str | None
     url: str | None
     raw: str
+
+
+@dataclass(frozen=True)
+class PackageMetadata:
+    """Metadata retrieved for one package from PyPI."""
+
+    name: str
+    version: str
+    summary: str
+    package_url: str
+    source_url: str | None
+    latest_release: datetime | None
+    release_count: int
+    requires_python: str | None
