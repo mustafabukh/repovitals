@@ -51,3 +51,15 @@ class RepositorySummary:
     def churn(self) -> int:
         """Return total line churn."""
         return self.additions + self.deletions
+
+
+@dataclass(frozen=True)
+class DependencyRequirement:
+    """A direct dependency declared by a Python project."""
+
+    name: str
+    specifier: str
+    extras: tuple[str, ...]
+    marker: str | None
+    url: str | None
+    raw: str

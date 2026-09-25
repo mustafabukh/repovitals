@@ -19,3 +19,7 @@ class GitCommandError(RepositoryError):
 
 class GitParseError(RepositoryError):
     """output cannot be parsed."""
+
+
+class ConfigurationError(RepoVitalsError):
+    """Raised when project configuration cannot be read."""
