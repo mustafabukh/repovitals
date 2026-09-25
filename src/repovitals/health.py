@@ -1,4 +1,4 @@
-"""Assess the maintenance health of Python dependencies."""
+"""Assess the maintenance health of direct Python dependencies."""
 
 from datetime import UTC, datetime
 from pathlib import Path
