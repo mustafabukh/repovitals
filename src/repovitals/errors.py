@@ -31,3 +31,7 @@ class PackageApiError(RepoVitalsError):
 
 class CacheError(RepoVitalsError):
     """Raised when cached data cannot be read or written."""
+
+
+class PlotError(RepoVitalsError):
+    """Raised when a visualization cannot be saved."""

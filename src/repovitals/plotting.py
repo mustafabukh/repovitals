@@ -12,12 +12,8 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from repovitals.errors import RepoVitalsError
+from repovitals.errors import PlotError
 from repovitals.models import RepositorySummary
-
-
-class PlotError(RepoVitalsError):
-    """Raised when a visualization cannot be saved."""
 
 
 def _normalise_commit_dates(history: pd.DataFrame) -> pd.DataFrame:
@@ -71,9 +67,7 @@ def _activity_settings(
             "title": "Hourly commit activity",
             "style": "bar",
             "bar_width_days": 0.8 / 24.0,
-            "locator": mdates.HourLocator(
-                interval=6 if span_days <= 4 else 12
-            ),
+            "locator": mdates.HourLocator(interval=6 if span_days <= 4 else 12),
             "formatter": mdates.DateFormatter("%d %b\n%H:%M"),
         }
 
@@ -84,9 +78,7 @@ def _activity_settings(
             "title": "Daily commit activity",
             "style": "bar",
             "bar_width_days": 0.8,
-            "locator": mdates.DayLocator(
-                interval=max(1, round(span_days / 10))
-            ),
+            "locator": mdates.DayLocator(interval=max(1, round(span_days / 10))),
             "formatter": mdates.DateFormatter("%d %b"),
         }
 
@@ -111,9 +103,7 @@ def _activity_settings(
             "title": "Monthly commit activity",
             "style": "bar",
             "bar_width_days": 20,
-            "locator": mdates.MonthLocator(
-                interval=1 if span_days <= 540 else 2
-            ),
+            "locator": mdates.MonthLocator(interval=1 if span_days <= 540 else 2),
             "formatter": mdates.DateFormatter("%b\n%Y"),
         }
 
@@ -136,9 +126,7 @@ def _activity_settings(
         "title": "Yearly commit activity",
         "style": "line",
         "bar_width_days": 0,
-        "locator": mdates.YearLocator(
-            base=max(1, round(span_days / 3650))
-        ),
+        "locator": mdates.YearLocator(base=max(1, round(span_days / 3650))),
         "formatter": mdates.DateFormatter("%Y"),
     }
 
@@ -304,10 +292,7 @@ def plot_contributor_share(
 
     contributors = list(reversed(summary.top_contributors))
     names = [contributor.name for contributor in contributors]
-    shares = [
-        contributor.share * 100.0
-        for contributor in contributors
-    ]
+    shares = [contributor.share * 100.0 for contributor in contributors]
 
     path = Path(output_path)
 
@@ -388,8 +373,4 @@ def create_plots(
         ),
     )
 
-    return tuple(
-        path
-        for path in candidates
-        if path is not None
-    )
+    return tuple(path for path in candidates if path is not None)
