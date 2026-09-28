@@ -1,0 +1,256 @@
+{
+  "generated_at": "2026-09-28T20:44:31.778401+00:00",
+  "repository": {
+    "path": "C:\\Users\\ui992624\\Downloads\\dataScienceInContextProgCourse\\repovitals\\playground\\repos\\requests",
+    "commit_count": 4862,
+    "contributor_count": 794,
+    "file_count": 466,
+    "additions": 161376,
+    "deletions": 132211,
+    "churn": 293587,
+    "binary_changes": 48,
+    "renamed_changes": 77,
+    "first_commit": "2011-02-13T18:41:18+00:00",
+    "latest_commit": "2026-09-21T20:22:33+00:00",
+    "top_contributors": [
+      {
+        "name": "Kenneth Reitz",
+        "email": "me@kennethreitz.com",
+        "commits": 1494,
+        "share": 0.30728095433977787
+      },
+      {
+        "name": "Kenneth Reitz",
+        "email": "me@kennethreitz.org",
+        "commits": 697,
+        "share": 0.14335664335664336
+      },
+      {
+        "name": "Cory Benfield",
+        "email": "lukasaoz@gmail.com",
+        "commits": 329,
+        "share": 0.0676676264911559
+      },
+      {
+        "name": "Nate Prewitt",
+        "email": "Nate.Prewitt@gmail.com",
+        "commits": 232,
+        "share": 0.04771698889345948
+      },
+      {
+        "name": "Ian Cordasco",
+        "email": "graffatcolmingov@gmail.com",
+        "commits": 195,
+        "share": 0.040106951871657755
+      },
+      {
+        "name": "dependabot[bot]",
+        "email": "49699333+dependabot[bot]@users.noreply.github.com",
+        "commits": 65,
+        "share": 0.013368983957219251
+      },
+      {
+        "name": "Shivaram Lingamneni",
+        "email": "slingamn@cs.stanford.edu",
+        "commits": 45,
+        "share": 0.00925545043192102
+      },
+      {
+        "name": "Braulio Valdivielso Martínez",
+        "email": "brlvldvlsmrtnz@gmail.com",
+        "commits": 42,
+        "share": 0.008638420403126285
+      },
+      {
+        "name": "Johannes",
+        "email": "jgorset@gmail.com",
+        "commits": 26,
+        "share": 0.0053475935828877
+      },
+      {
+        "name": "daftshady",
+        "email": "daftonshady@gmail.com",
+        "commits": 24,
+        "share": 0.0049362402303578775
+      }
+    ],
+    "hotspots": [
+      {
+        "path": "requests/cacert.pem",
+        "commits": 10,
+        "additions": 11607,
+        "deletions": 11607,
+        "churn": 23214
+      },
+      {
+        "path": "requests/packages/idna/uts46data.py",
+        "commits": 3,
+        "additions": 7634,
+        "deletions": 7634,
+        "churn": 15268
+      },
+      {
+        "path": "ext/requests-logo.ai",
+        "commits": 4,
+        "additions": 11577,
+        "deletions": 2855,
+        "churn": 14432
+      },
+      {
+        "path": "requests/models.py",
+        "commits": 717,
+        "additions": 5967,
+        "deletions": 5112,
+        "churn": 11079
+      },
+      {
+        "path": "tests/test_requests.py",
+        "commits": 254,
+        "additions": 4143,
+        "deletions": 3587,
+        "churn": 7730
+      },
+      {
+        "path": "test_requests.py",
+        "commits": 366,
+        "additions": 4611,
+        "deletions": 1879,
+        "churn": 6490
+      },
+      {
+        "path": "requests/packages/idna/idnadata.py",
+        "commits": 3,
+        "additions": 3144,
+        "deletions": 3144,
+        "churn": 6288
+      },
+      {
+        "path": "Pipfile.lock",
+        "commits": 22,
+        "additions": 2724,
+        "deletions": 2719,
+        "churn": 5443
+      },
+      {
+        "path": "requests/packages/chardet/mbcssm.py",
+        "commits": 8,
+        "additions": 2269,
+        "deletions": 2844,
+        "churn": 5113
+      },
+      {
+        "path": "requests/packages/urllib3/connectionpool.py",
+        "commits": 70,
+        "additions": 2606,
+        "deletions": 2080,
+        "churn": 4686
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "requirement": {
+        "name": "charset_normalizer",
+        "specifier": "<4,>=2",
+        "extras": [],
+        "marker": null,
+        "url": null,
+        "raw": "charset_normalizer>=2,<4"
+      },
+      "metadata": {
+        "name": "charset-normalizer",
+        "version": "3.5.1",
+        "summary": "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet.",
+        "package_url": "https://pypi.org/project/charset-normalizer/",
+        "source_url": "https://github.com/jawah/charset_normalizer",
+        "latest_release": "2026-08-15T08:20:44.807628+00:00",
+        "release_count": 65,
+        "requires_python": ">=3.7"
+      },
+      "risk": "low",
+      "score": 0,
+      "reasons": [
+        "A release was published within the last year"
+      ],
+      "error": null
+    },
+    {
+      "requirement": {
+        "name": "idna",
+        "specifier": "<4,>=2.5",
+        "extras": [],
+        "marker": null,
+        "url": null,
+        "raw": "idna>=2.5,<4"
+      },
+      "metadata": {
+        "name": "idna",
+        "version": "3.20",
+        "summary": "Internationalized Domain Names in Applications (IDNA)",
+        "package_url": "https://pypi.org/project/idna/",
+        "source_url": "https://github.com/kjd/idna",
+        "latest_release": "2026-09-17T14:11:04.752193+00:00",
+        "release_count": 42,
+        "requires_python": ">=3.9"
+      },
+      "risk": "low",
+      "score": 0,
+      "reasons": [
+        "A release was published within the last year"
+      ],
+      "error": null
+    },
+    {
+      "requirement": {
+        "name": "urllib3",
+        "specifier": "<3,>=1.26",
+        "extras": [],
+        "marker": null,
+        "url": null,
+        "raw": "urllib3>=1.26,<3"
+      },
+      "metadata": {
+        "name": "urllib3",
+        "version": "2.8.0",
+        "summary": "HTTP library with thread-safe connection pooling, file post, and more.",
+        "package_url": "https://pypi.org/project/urllib3/",
+        "source_url": "https://github.com/urllib3/urllib3",
+        "latest_release": "2026-09-15T19:29:36.253420+00:00",
+        "release_count": 105,
+        "requires_python": ">=3.10"
+      },
+      "risk": "low",
+      "score": 0,
+      "reasons": [
+        "A release was published within the last year"
+      ],
+      "error": null
+    },
+    {
+      "requirement": {
+        "name": "certifi",
+        "specifier": ">=2023.5.7",
+        "extras": [],
+        "marker": null,
+        "url": null,
+        "raw": "certifi>=2023.5.7"
+      },
+      "metadata": {
+        "name": "certifi",
+        "version": "2026.7.22",
+        "summary": "Python package for providing Mozilla's CA Bundle.",
+        "package_url": "https://pypi.org/project/certifi/",
+        "source_url": "https://github.com/certifi/python-certifi",
+        "latest_release": "2026-07-22T03:35:12.644458+00:00",
+        "release_count": 75,
+        "requires_python": ">=3.7"
+      },
+      "risk": "low",
+      "score": 0,
+      "reasons": [
+        "A release was published within the last year"
+      ],
+      "error": null
+    }
+  ]
+}

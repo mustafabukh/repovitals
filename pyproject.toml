@@ -9,7 +9,7 @@ description = "Analyze the maintenance health of Git repositories and Python dep
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Mustafa Bukhari M. Ahmed", email = "mustafa.bukh@gmail.com" }
+    { name = "Mustafa Bukhari", email = "mustafa.bukh@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [

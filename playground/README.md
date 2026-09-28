@@ -2,6 +2,7 @@
 
 
 # to test functions clone any repo to here
+# create repos dir first
 cd ./repovitals/playground/repos
 git clone https://github.com/psf/requests.git
-uv run python 01_git_log.py
+uv run python test.py
