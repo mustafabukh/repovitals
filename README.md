@@ -1,131 +1,150 @@
 # RepoVitals
 
-RepoVitals is a Python command-line tool that analyzes the maintenance health
-of a local Git repository and its direct Python dependencies.
+RepoVitals is a Python command-line tool for reviewing the maintenance activity of a local Git repository and the direct Python dependencies in its `pyproject.toml`.
 
-The project combines local Git-history analysis with package metadata from
-PyPI. It produces explainable metrics, saved visualizations, and a Markdown
-report.
-
-## Planned features
-
-### Local repository analysis
-
-- Count commits and contributors
-- Show commit activity over time
-- Identify the most active contributors
-- Calculate contributor concentration
-- Identify files with high line churn
-- Find files that have not changed recently
-- Handle binary files and renamed paths
-
-### Dependency analysis
-
-- Read direct dependencies from `pyproject.toml`
-- Retrieve package and release information from PyPI
-- Find the source repository when metadata is available
-- Measure time since the latest package release
-- Identify packages with missing or stale metadata
-- Calculate a simple and explainable maintenance-risk rating
-- Cache API responses for reproducibility
-
-### Reports
-
-- Print a summary in the terminal
-- Save analysis data as JSON
-- Generate a Markdown health report
-- Save activity and hotspot visualizations as PNG files
+It summarizes commit and contributor activity, identifies files with high line churn, retrieves package metadata from PyPI, and can save a Markdown report, JSON data, and PNG charts. Dependency risk scores are review helpers.
 
 ## Requirements
 
 - Python 3.12 or newer
-- Git
-- [`uv`](https://docs.astral.sh/uv/)
+- Git available on `PATH`
+- [`uv`](https://docs.astral.sh/uv/) for the development commands below
+- Network access for uncached PyPI metadata, unless using `--offline`
 
-## Installation for development
-
-Clone the repository:
+## Install
 
 ```bash
-git clone https://github.com/mustafabukhari/repovitals.git
+git clone https://github.com/mustafabukh/repovitals.git
 cd repovitals
-```
-
-Install the project and its dependencies:
-
-```bash
 uv sync
 ```
 
-## Current usage
-
-Show the current command-line placeholder:
+Run the installed package with either its module entry point or console script:
 
 ```bash
-uv run -m repovitals /path/to/repository
+uv run -m repovitals --help
+uv run repovitals --help
 ```
 
-For example, analyze the current directory:
+## Quick start
+
+Analyze the current Git repository:
 
 ```bash
 uv run -m repovitals .
 ```
 
-After installation, the console entry point is also available:
+- or with reports saved to 
 
 ```bash
-uv run repovitals .
+uv run -m repovitals . --output repovitals-report
 ```
 
-The complete analysis commands will be documented as they are implemented.
-
-## Playground
-
-The `playground/` directory contains experimental scripts used to test ideas
-before moving them into the package.
-
-To run the current Git-history experiment:
+Analyze another local repository and save reports and charts:
+- example (on requests lib repo in playground): 
 
 ```bash
-uv run python playground/test.py
+uv run -m repovitals ./playground/repos/requests --output requests-reports
 ```
 
-The experiment expects a local clone of the Requests repository at:
+Run Git analysis without querying dependencies:
+
+```bash
+uv run -m repovitals /path/to/repository --no-dependencies
+```
+
+A supplied path may be the repository root or a directory inside it. RepoVitals finds the Git work-tree root and reads its history. Dependency analysis looks for `pyproject.toml` **at that root**.
+
+### Options
+
+| Option | Effect |
+|---|---|
+| `path` | Local repository path; defaults to `.` |
+| `--top N` | Show up to `N` contributors and file hotspots; default: `10` |
+| `--no-dependencies` | Skip dependency analysis |
+| `--cache-dir DIR` | Store PyPI JSON responses in `DIR`; default: `.repovitals-cache` |
+| `--offline` | Use cached PyPI responses only; make no PyPI requests |
+| `--refresh` | Download fresh PyPI responses instead of reading cached ones |
+| `--output DIR` | Save Markdown and JSON reports and available PNG charts in `DIR` |
+| `--version` | Print the installed version |
+
+`--offline` and `--refresh` cannot be used together. 
+`--top` must be at least `1`.
+
+The cache directory is interpreted relative to the directory **from which you run the command**, unless you supply an absolute path.
+
+## What is analyzed
+
+### Git history
+
+RepoVitals reads non-merge commits using Git's `--numstat` output. It reports:
+
+- Unique commits and contributors represented in the parsed file-change history
+- Unique changed paths
+- Text-line additions, deletions, and total churn
+- Counts of binary and renamed file changes
+- First and latest commit dates
+- Top contributors by unique commit count and their share of counted commits
+- Text-file hotspots ranked by total lines added plus deleted
+
+Binary changes count as file changes, but their additions and deletions contribute **zero** to line churn because Git does not provide meaningful line counts for binary files. Rename notation is normalized to the destination path for hotspot reporting.
+
+The tool analyzes historical changes; it does not determine whether a file still exists or identify files that have gone stale. Merge commits are not analyzed.
+
+### Direct Python dependencies
+
+When the repository root contains a `pyproject.toml`, RepoVitals reads **`[project].dependencies`** and requests metadata for those direct dependencies from PyPI.
+
+The risk score uses three signals:
+
+| Signal | Added score |
+|---|---:|
+| No release date found | 40 |
+| Latest release over one year old | 20 |
+| Latest release over two years old | 40 instead of 20 |
+| Latest release over three years old | 60 instead of 40 |
+| No likely source URL found in PyPI metadata | 20 |
+| Fewer than two published releases found | 10 |
+
+Scores are capped at 100. A score below 25 is **low** risk, 25–49 is **moderate**, and 50 or above is **high**. If metadata cannot be retrieved, risk is **unknown**.
+
+### offline use
+
+Successful PyPI responses are saved as JSON in the cache directory. Later runs reuse those responses unless `--refresh` is set:
+
+```bash
+uv run -m repovitals . --refresh
+uv run -m repovitals . --offline
+```
+
+Offline mode still analyzes the local Git repository. Packages without cached responses receive an **unknown** risk result with an explanatory error.
+
+## Saved output
+
+With `--output reports`, RepoVitals writes:
 
 ```text
-playground/repos/requests
+reports/
+├── report.md
+├── report.json
+├── commit_activity.png       # if commit activity is available
+├── contributor_share.png     # if contributor data is available
+└── file_hotspots.png         # if text-file hotspots are available
 ```
 
-It can be cloned with:
+`report.md` summarizes the results for reading; `report.json` contains the structured data. The charts show commit activity over time, top contributors' commit shares, and files with the most line churn. The commit-activity chart adjusts its time aggregation to the span of the repository history.
+
+For example:
 
 ```bash
-git clone https://github.com/psf/requests.git playground/repos/requests
+uv run -m repovitals . --output reports
 ```
-
-Repositories inside `playground/repos/` are excluded from version control.
-
 ## Development
 
-Run the tests:
-
 ```bash
+uv sync
 uv run pytest
-```
-
-Run the linter:
-
-```bash
 uv run ruff check .
-```
-
-Format the code:
-
-```bash
-uv run ruff format .
-```
-
-Check formatting without changing files:
-
-```bash
 uv run ruff format --check .
+uv build
 ```
