@@ -20,9 +20,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mustafabukhari/repovitals"
-Repository = "https://github.com/mustafabukhari/repovitals"
-Issues = "https://github.com/mustafabukhari/repovitals/issues"
+Homepage = "https://github.com/mustafabukh/repovitals"
+Repository = "https://github.com/mustafabukh/repovitals"
+Issues = "https://github.com/mustafabukh/repovitals/issues"
 
 [project.scripts]
 repovitals = "repovitals.__main__:main"
